@@ -1,96 +1,240 @@
-# Hotel Management System — AJT CSE Project
+# 🏨 AJT Hotel Management System
 
-**AJT technologies demonstrated:** Java Swing, Jakarta Servlet, JSP/JSTL, and Spring MVC / Spring Boot.
+A web-based **Hotel Management System** designed to simplify and manage day-to-day hotel operations through a centralized dashboard.
 
-This is an academic demonstration project built by extending the supplied Swing Hotel Management System. The original desktop source files are retained under `src/main/java` in the default package. A Spring-powered web module is added alongside it.
+The system provides essential hotel management features, including customer management, room management, reservations, food orders, laundry services, room service, employee management, billing, and reports.
 
-## Technology mapping
+🔗 **Live Demo:** https://ajt-hotel-management-system.onrender.com/
 
-| Technology | Where demonstrated | Purpose |
-|---|---|---|
-| Swing | `src/main/java/*.java` | Desktop login, dashboard, room management, legacy customer/food/laundry/billing screens, reports and receipt history |
-| Servlet | `com/ahotel/servlet/SystemStatusServlet.java` | Explicit Jakarta HttpServlet endpoint at `/legacy-status` |
-| JSP | `src/main/webapp/WEB-INF/jsp/dashboard.jsp` | Server-rendered dashboard and room booking form using JSTL |
-| Spring | `com/ahotel/controller`, `service`, `config` | Spring MVC controllers, dependency injection, booking business rules and JDBC persistence |
+📂 **GitHub Repository:** https://github.com/ayushshiva/AJT-Hotel-Management-System
 
-## Requirements
+---
 
-- JDK 21
-- Apache Maven 3.9+
-- Browser for the web module
+## ✨ Features
 
-## Academic demo credentials
+### 📊 Dashboard
+- Centralized hotel management dashboard.
+- Quick access to major hotel operations.
+- Overview of hotel activities.
 
-- Web application: `admin` / `admin123`
-- Swing application: `admin` / `1234`
+### 👥 Customer Management
+- Register new customers.
+- Manage customer information.
+- Search and view customer records.
 
-These are hard-coded demonstration credentials, not suitable for production.
+### 🛏️ Room Management
+- Manage hotel rooms.
+- Track room availability and details.
+- Organize room-related operations.
 
-## Run the web application
+### 📅 Booking & Reservations
+- Manage customer reservations.
+- Handle booking-related operations.
+- Support the hotel reservation workflow.
 
-From the project root:
+### 🍽️ Food Management
+- Create food orders.
+- Manage food order status.
+- Track the order workflow:
+  `PENDING → PREPARING → READY → SERVED`
+
+### 🧺 Laundry Management
+- Manage laundry requests.
+- Track laundry service status.
+
+### 🛎️ Room Service
+- Create room service requests.
+- Manage service progress and completion.
+
+### 👨‍💼 Employee Management
+- Manage employee information.
+- Maintain employee records.
+
+### 💳 Billing & Payments
+- Generate customer invoices.
+- Calculate GST.
+- Record payment details.
+- Track outstanding amounts.
+
+### 📈 Reports
+- Access hotel management reports.
+- Review operational information.
+
+---
+
+## 🛠️ Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Java 21 | Backend programming |
+| Spring Boot 4.1.2 | Backend framework |
+| Spring MVC | Web application architecture |
+| JSP | Dynamic web pages |
+| JDBC | Database connectivity |
+| H2 Database | Database management |
+| Maven | Build and dependency management |
+| JUnit 5 | Unit and integration testing |
+| Mockito | Testing support |
+| Docker | Deployment environment |
+| Render | Cloud hosting |
+
+---
+
+## 🏗️ Application Architecture
+
+The application follows a layered architecture:
+
+```text
+AJT Hotel Management System
+│
+├── Presentation Layer
+│   └── JSP Views
+│
+├── Controller Layer
+│   └── Spring MVC Controllers
+│
+├── Service Layer
+│   └── Business Logic
+│
+├── Repository / Data Access
+│   └── JDBC
+│
+└── Database Layer
+    └── H2 Database
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Make sure you have installed:
+
+- Java JDK 21 or later
+- Apache Maven
+- Git
+
+### 1. Clone the Repository
 
 ```bash
-mvn clean package
+git clone https://github.com/ayushshiva/AJT-Hotel-Management-System.git
+```
+
+### 2. Navigate to the Project
+
+```bash
+cd AJT-Hotel-Management-System
+```
+
+### 3. Run the Application
+
+```bash
 mvn spring-boot:run
 ```
 
-Open `http://localhost:8080/` or `http://localhost:8080/dashboard`.
+### 4. Open in Browser
 
-- Servlet check: `http://localhost:8080/legacy-status`
-- JSON API: `http://localhost:8080/api/bookings`
-- Customer management: `http://localhost:8080/customers` (requires the demo login)
-- Rooms: `http://localhost:8080/rooms`
-- Date-ranged reservations: `http://localhost:8080/booking-management`
-- Food menu and orders: `http://localhost:8080/food`
-- Laundry: `http://localhost:8080/laundry`
-- Room service: `http://localhost:8080/room-service`
-- Employees: `http://localhost:8080/employees`
-- Billing and invoices: `http://localhost:8080/billing`
-- Reports: `http://localhost:8080/reports`
-- H2 database console: `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:hoteldb`, user `sa`, blank password)
+```text
+http://localhost:8081/
+```
 
-The web demo uses an in-memory H2 database by default. Data resets when the application stops. An optional MySQL starter schema is in `database/mysql-schema.sql`; configure the datasource in `src/main/resources/application.properties` before using MySQL.
+---
 
-## Customer management
+## 🔐 Demo Login
 
-Sign in with the web demo credentials, open **Customer Management** from the dashboard, and use the customer list to add, search, filter, view, edit, or delete/deactivate records. Mobile number and email must be unique. Existing bookings store customer name and phone rather than a customer foreign key, so booking history is matched by mobile number; a customer with matching booking records is deactivated rather than deleted.
+The deployed demo has the following sample login credentials:
 
-The web modules persist through JdbcTemplate. Reservations reference customers and rooms, block overlapping active stays, and support cancel/check-in/check-out. Food orders store line-item price snapshots; laundry and room-service charges are included only after delivery/completion. Invoices are generated once per checked-out reservation, use configurable GST (`hotel.billing.gst-rate`, default 18%), and accept recorded cash/UPI/card payments without a payment gateway.
+| Field | Value |
+|---|---|
+| Username | `admin` |
+| Password | `admin123` |
 
-The customer and module pages are tested through an embedded HTTP server. Service tests cover room CRUD, reservation overlap/lifecycle, order totals, service charges, invoice/GST arithmetic, payment status, employee validation and reports.
+**Note:** These are demonstration credentials. Do not use demo credentials for a production environment.
 
-## Run the original Swing desktop application
+---
 
-Compile and run the desktop client from the project root:
+## 🧪 Testing
+
+The project includes automated tests for customer management, hotel operations, room reservations, and customer controller integration.
+
+Run all tests:
 
 ```bash
-javac -d out src/main/java/*.java
-java -cp out Main
+mvn test
 ```
 
-The Swing client remains a separate desktop demonstration using its original in-memory `DataStore` and `FileManager` receipt log; it does not share the web H2 database. The added Swing room manager and reports operate on that desktop store. Use `File Management` to view receipt history.
+Build the application:
 
-## Current implementation boundaries
-
-The legacy `bookings` table and `/bookings` form/API remain for compatibility; those records have no dates or status. New date-based reservations use the separate `reservations` table. Old bookings remain visible in the dashboard and are retained in customer history by phone; they are not automatically migrated because their dates are unknown.
-
-The web modules are session-protected academic demo flows. The Swing application is still only partially aligned with web features and uses in-memory data. The default H2 database is in-memory and resets when the web application stops. The demo credentials are not production authentication. Payments are recorded locally; there is no payment gateway.
-
-## API example
-
-```http
-GET http://localhost:8080/api/bookings
-Content-Type: application/json
+```bash
+mvn clean package
 ```
 
-```http
-POST http://localhost:8080/api/bookings
-Content-Type: application/json
+**Latest verified build results:**
 
-{"customerName":"Aman Kumar","phone":"9876543210","roomNumber":"201","nights":2}
+- 8 Tests Executed
+- 0 Failures
+- 0 Errors
+- WAR Packaging Successful
+
+---
+
+## ☁️ Deployment
+
+The application is deployed using Render.
+
+**Live Application:**  
+https://ajt-hotel-management-system.onrender.com/
+
+Note: The current demonstration deployment uses Render's Free instance. The instance may spin down after inactivity, and its local filesystem is not persistent. Database records may therefore not survive restarts or redeployments.
+
+---
+
+## 📸 Screenshots
+
+Add application screenshots here to showcase:
+
+- Dashboard
+- Customer Management
+- Room Management
+- Booking Management
+- Food Management
+- Billing & Invoice
+- Reports
+
+Example:
+
+```markdown
+![Dashboard](screenshots/dashboard.png)
 ```
 
-## Academic note
+---
 
-This project demonstrates the four technologies in one submission. It is a prototype, not a production hotel SaaS: it does not include production authentication, payment gateway integration, deployment hardening, or a shared database connection between the legacy Swing client and the web module.
+## 🎯 Project Objectives
+
+- Simplify hotel management operations.
+- Centralize customer and reservation information.
+- Organize room and service management.
+- Improve billing and payment workflows.
+- Provide a user-friendly web interface.
+- Demonstrate practical implementation of Java and Spring Boot technologies.
+
+---
+
+## 👨‍💻 Developer
+
+**Ayush Kumar**
+
+GitHub: [@ayushshiva](https://github.com/ayushshiva)
+
+---
+
+## 📄 License
+
+This project was developed as an academic/college project.
+
+---
+
+⭐ If you find this project interesting, consider giving the repository a star!
+
+**Built with Java, Spring Boot and dedication. ❤️**
