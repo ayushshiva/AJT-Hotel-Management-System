@@ -70,15 +70,16 @@ class CustomerControllerIntegrationTest {
 
         String customerName = "Integration Guest " + System.nanoTime();
         String email = "integration." + System.nanoTime() + "@example.com";
+        String mobileNumber = "9" + String.format("%09d", Math.floorMod(System.nanoTime(), 1000000000L));
         String customerForm = "fullName=" + encode(customerName)
-                + "&mobileNumber=9000000000&emailAddress=" + encode(email);
+                + "&mobileNumber=" + mobileNumber + "&emailAddress=" + encode(email);
         HttpResponse<String> createCustomer = client.send(
                 HttpRequest.newBuilder(customersUri)
                         .header("Content-Type", "application/x-www-form-urlencoded")
                         .POST(HttpRequest.BodyPublishers.ofString(customerForm))
                         .build(),
                 HttpResponse.BodyHandlers.ofString());
-        assertEquals(302, createCustomer.statusCode());
+        assertEquals(302, createCustomer.statusCode(), createCustomer.body());
 
         HttpResponse<String> customerSearch = client.send(
                 HttpRequest.newBuilder(URI.create("http://localhost:" + port
